@@ -2,6 +2,7 @@ import java.sql.*;
 
 public class Exercice2
 {
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName("oracle.jdbc.driver.OracleDriver");
         System.out.println("Driver loaded");
@@ -15,11 +16,12 @@ public class Exercice2
         Statement st = co.createStatement(type, mode);
 
 
-        ResultSet rS = st.executeQuery("SELECT * FROM empUL");
+        ResultSet rS = st.executeQuery("SELECT nomemp, prenomemp, salaire FROM empUL");
 
         ResultSetMetaData rSMeta = rS.getMetaData();
-        for (int i = 1; i <= 5 ; i ++)
-            System.out.print(rSMeta.getColumnName(i) + "\t");
+        final int COL_NUM = rSMeta.getColumnCount();
+        showColsName(rSMeta, COL_NUM);
+
         //rS.next(); //show 1st element
         //rS.last(); //Show last element
         //show(rS);
@@ -29,18 +31,23 @@ public class Exercice2
         boolean trouve = false;
         while(rS.next() && !trouve)
             if (++ count == 3)
-                show(rS);
+                showRows(rS, COL_NUM);
 
 
 
     }
 
-    public static void show(ResultSet rS) throws SQLException {
-        System.out.println(
-                rS.getString(1) + "\t" +
-                        rS.getString(2) + "\t" +
-                        rS.getString(3) + "\t" +
-                        rS.getString(4) + "\t" +
-                        rS.getString(5) + "\t");
+    public static void showRows(ResultSet rS, final int NUM) throws SQLException
+    {
+        for (int i = 1; i <= NUM ; i ++)
+            System.out.print(rS.getString(i) + "\t");
+        System.out.println("");
+    }
+
+    public static void showColsName(ResultSetMetaData rSMeta, final int NUM) throws SQLException
+    {
+        for (int i = 1; i <= NUM ; i ++)
+            System.out.print(rSMeta.getColumnName(i) + "\t");
+        System.out.println("");
     }
 }
