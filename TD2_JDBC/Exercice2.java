@@ -24,15 +24,23 @@ public class Exercice2
 
         //rS.next(); //show 1st element
         //rS.last(); //Show last element
-        //show(rS);
+        rS.absolute(4); //Show nth element, simple version
+        //rS.beforeFirst();
+        showRows(rS, COL_NUM);
 
-
+        /*
+        //Show nth element, complicated version
         int count = 0;
         boolean trouve = false;
         while(rS.next() && !trouve)
             if (++ count == 3)
                 showRows(rS, COL_NUM);
+        */
 
+        //System.out.println(rS.absolute());
+        //absolute(n) moves the cursor to n rows (from the top if positive, from the end if negative)
+
+        //showRows(rS, COL_NUM);
 
 
     }
