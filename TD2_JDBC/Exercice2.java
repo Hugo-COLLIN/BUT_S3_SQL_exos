@@ -16,15 +16,22 @@ public class Exercice2
 
 
         ResultSet rS = st.executeQuery("SELECT * FROM empUL");
+
+        ResultSetMetaData rSMeta = rS.getMetaData();
+        for (int i = 1; i <= 5 ; i ++)
+            System.out.print(rSMeta.getColumnName(i) + "\t");
         //rS.next(); //show 1st element
         //rS.last(); //Show last element
         //show(rS);
+
 
         int count = 0;
         boolean trouve = false;
         while(rS.next() && !trouve)
             if (++ count == 3)
                 show(rS);
+
+
 
     }
 
