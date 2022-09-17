@@ -16,16 +16,21 @@ public class Exercice2
         Statement st = co.createStatement(type, mode);
 
 
-        ResultSet rS = st.executeQuery("SELECT nomemp, prenomemp, salaire FROM empUL");
+        ResultSet rS = st.executeQuery("SELECT numemp, nomemp, prenomemp, salaire FROM empUL");
 
         ResultSetMetaData rSMeta = rS.getMetaData();
         final int COL_NUM = rSMeta.getColumnCount();
         showColsName(rSMeta, COL_NUM);
 
-        //rS.next(); //show 1st element
+        //rS.next(); //move the cursor to the next row (here to the first row)
         //rS.last(); //Show last element
         rS.absolute(4); //Show nth element, simple version
-        //rS.beforeFirst();
+        // absolute(n) moves the cursor to n rows (from the top if positive, from the end if negative) https://coderanch.com/t/303766/databases/num-rows-ResultSet
+        showRows(rS, COL_NUM);
+
+        //rS.beforeFirst(); //Move the cursor at his start place, i.e. before the first row (need to use next() to read the first row)
+        rS.afterLast(); //Move the cursor after the last row
+        rS.previous(); //move the cursor to the previous row (here to the last row)
         showRows(rS, COL_NUM);
 
         /*
@@ -38,7 +43,7 @@ public class Exercice2
         */
 
         //System.out.println(rS.absolute());
-        //absolute(n) moves the cursor to n rows (from the top if positive, from the end if negative)
+
 
         //showRows(rS, COL_NUM);
 
