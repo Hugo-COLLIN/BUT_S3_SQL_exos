@@ -15,44 +15,16 @@ public class Exercice2
         Statement st = co.createStatement(type, mode);
 
 
-
-
-        /*
-        //show 1st element
         ResultSet rS = st.executeQuery("SELECT * FROM empUL");
-        rS.next();
-        show(rS);
-         */
+        //rS.next(); //show 1st element
+        //rS.last(); //Show last element
+        //show(rS);
 
-        //Show last element
-        ResultSet rS = st.executeQuery("SELECT * FROM empUL");
-        rS.last();
-        show(rS);
-
-        /*
-        while(rS.next()) {
-            if(rS.isLast()) {
+        int count = 0;
+        boolean trouve = false;
+        while(rS.next() && !trouve)
+            if (++ count == 3)
                 show(rS);
-            }
-        }
-
-         */
-
-        /*
-        boolean suivant = true;
-        ResultSet rSTrouve = null;
-        while (rS != null)
-        {
-            rSTrouve = rS;
-            suivant = rS.next();
-            if (rS == null)
-                show(rSTrouve);
-        }
-                 */
-
-
-
-
 
     }
 
