@@ -31,13 +31,36 @@ public class Exercice3
         */
 
         //3.2
+        /*
         PreparedStatement prepSt = co.prepareStatement("UPDATE empUL SET salaire = ? WHERE numemp = ?");
         prepSt.setString(1, "65000");
         prepSt.setInt(2, 1);
+        */
 
+        /*prepSt.executeUpdate(); //3.1 and 3.2
+        System.out.println("Operation performed");*/
 
-        prepSt.executeUpdate();
-        System.out.println("Operation performed");
+        int type = ResultSet.TYPE_SCROLL_INSENSITIVE;
+        int mode = ResultSet.CONCUR_UPDATABLE;
+        PreparedStatement prepSt = co.prepareStatement("SELECT * FROM empUL WHERE emploi = ?", type, mode);
+        prepSt.setString(1, "FINANCES");
+
+        ResultSet rS = prepSt.executeQuery();
+        ResultSetMetaData rSMeta = rS.getMetaData();
+
+        final int NUM = rSMeta.getColumnCount();
+        //while (rS.next()) showRow(rS, NUM);
+
+        rS.afterLast();
+        while (rS.previous()) showRow(rS, NUM);
+
         co.close();
+    }
+
+    public static void showRow(ResultSet rS, final int NUM) throws SQLException
+    {
+        for (int i = 1; i <= NUM ; i ++)
+            System.out.print(rS.getString(i) + "\t");
+        System.out.println("");
     }
 }
