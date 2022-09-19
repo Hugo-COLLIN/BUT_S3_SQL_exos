@@ -3,6 +3,7 @@ import java.sql.*;
 public class Exercice1
 {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        //Try Optionnel à partir de JDBC 4
         Class.forName("oracle.jdbc.driver.OracleDriver");
         System.out.println("Driver loaded");
 
