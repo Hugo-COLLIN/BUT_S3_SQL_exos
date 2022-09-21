@@ -45,6 +45,12 @@ WHERE no_imm = '1234ya54'
     BETWEEN '01/10/15' AND '03/10/15'
 ;
 
+
+UPDATE Calendrier 
+SET paslibre = 'x'
+WHERE no_imm = '1234ya54'
+    AND datejour BETWEEN '01/10/15' AND '03/10/15';
+
 rollback;
     
     

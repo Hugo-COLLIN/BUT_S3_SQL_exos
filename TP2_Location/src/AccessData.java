@@ -9,14 +9,20 @@ public class AccessData
     private final int TYPE = ResultSet.TYPE_SCROLL_INSENSITIVE;
     private final int MODE = ResultSet.CONCUR_UPDATABLE;
 
-    public AccessData(String lgn, String pwd) throws ClassNotFoundException, SQLException
+    public AccessData() throws ClassNotFoundException
     {
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        System.out.println("Driver loaded");
 
+    }
+
+    public String loadDriver() throws ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        return "Driver loaded";
+    }
+
+    public String connection(String lgn, String pwd) throws SQLException {
         String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
         this.co = DriverManager.getConnection(url, lgn, pwd);
-        System.out.println("Successfully connected to the database :)");
+        return "Successfully connected to the database :)";
     }
 
     public String listeVehic(String categ, String stDate, String endDate) throws SQLException
@@ -45,16 +51,19 @@ public class AccessData
         return sb.toString();
     }
 
-    public String majCal(String stDate, String endDate, String immat) throws SQLException
+    public String majCal(String immat, String stDate, String endDate, int loc) throws SQLException
     {
         this.pst = this.co.prepareStatement("UPDATE Calendrier \n" +
-                "SET paslibre = 'x'\n" +
+                "SET paslibre = ?\n" +
                 "WHERE no_imm = ?\n" +
                 "    AND datejour BETWEEN ? AND ?", TYPE, MODE);
 
-        pst.setString(1, immat);
-        pst.setString(2, stDate);
-        pst.setString(3, endDate);
+        if (loc == 1) pst.setString(1, "x");
+        else pst.setNull(1, Types.VARCHAR);
+        pst.setString(2, immat);
+        pst.setString(3, stDate);
+        pst.setString(4, endDate);
+
 
         pst.executeUpdate();
         return "Executed";
