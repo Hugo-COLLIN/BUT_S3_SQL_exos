@@ -12,7 +12,9 @@ public class Main
         Scanner sc = new Scanner(System.in);
         while (!end)
         {
-            System.out.print("Please choose an action :\n1. List of available vehicles\n2. MAJ booking calendar\n6. Exit\n>> ");
+            System.out.print("Please choose an action :\n1. List of available vehicles\n" +
+                    "2. MAJ booking calendar\n3. Location's amount\n4. Agencies with all vehicles' categories\n" +
+                    "5. Clients who have located 2 different models \n6. Exit\n>> ");
             int choice = sc.nextInt();
             sc.nextLine();
 
